@@ -5,6 +5,10 @@ import { Header, Contents, Footer } from './components/Layout'
 import FlexDirectionTest from './components/FlexDirectionTest'
 import JustifyContentTest from './components/JustifyContentTest'
 import AlignItemsTest from './components/AlignItemsTest'
+import ShadowBox from './components/ShadowBox'
+import { StyledComponent } from './components/StyledComponent'
+import Button from './components/Button'
+import styled from 'styled-components'
 
 // export default function App(){
 //     return(
@@ -20,6 +24,14 @@ import AlignItemsTest from './components/AlignItemsTest'
 //         </View>
 //     )
 // }
+
+const Container = styled.View`
+    flex: 1
+    background-color: #ffffff
+    align-items: center
+    justify-content: center
+`
+
 export default function App(){
     return(
         <ScrollView>
@@ -30,8 +42,13 @@ export default function App(){
                 <FlexDirectionTest />
                 <JustifyContentTest />
                 <AlignItemsTest />
+                <ShadowBox />
+                <StyledComponent />
             </View>
+            <Container>
+                <Button title="Hanbit"/>
+                <Button title="React Native"/>
+            </Container>
         </ScrollView>
-        
     )
 }
