@@ -9,6 +9,7 @@ import ShadowBox from './components/ShadowBox'
 import { StyledComponent } from './components/StyledComponent'
 import Button from './components/Button'
 import styled from 'styled-components'
+import Signup from './components/Signup'
 
 // export default function App(){
 //     return(
@@ -34,21 +35,24 @@ const Container = styled.View`
 
 export default function App(){
     return(
-        <ScrollView>
-            <View style={viewStyles.container}>
-                <Header />
-                <Contents />
-                <Footer />
-                <FlexDirectionTest />
-                <JustifyContentTest />
-                <AlignItemsTest />
-                <ShadowBox />
-                <StyledComponent />
-            </View>
-            <Container>
-                <Button title="Hanbit"/>
-                <Button title="React Native"/>
-            </Container>
-        </ScrollView>
+        // <ScrollView>
+        //     <View style={viewStyles.container}>
+        //         <Header />
+        //         <Contents />
+        //         <Footer />
+        //         <FlexDirectionTest />
+        //         <JustifyContentTest />
+        //         <AlignItemsTest />
+        //         <ShadowBox />
+        //         <StyledComponent />
+        //     </View>
+        //     <Container>
+        //         <Button title="Hanbit"/>
+        //         <Button title="React Native"/>
+        //     </Container>
+        // </ScrollView>
+        <View>
+            <Signup />
+        </View>
     )
 }
