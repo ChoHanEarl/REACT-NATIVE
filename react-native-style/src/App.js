@@ -1,5 +1,5 @@
-import React from 'react'
-import { Text, View, ScrollView } from 'react-native'
+import React, { useState } from 'react'
+import { Text, View, ScrollView, Switch } from 'react-native'
 import { textStyles, viewStyles } from './styles'
 import { Header, Contents, Footer } from './components/Layout'
 import FlexDirectionTest from './components/FlexDirectionTest'
@@ -8,8 +8,10 @@ import AlignItemsTest from './components/AlignItemsTest'
 import ShadowBox from './components/ShadowBox'
 import { StyledComponent } from './components/StyledComponent'
 import Button from './components/Button'
-import styled from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 import Signup from './components/Signup'
+import Input from './components/input'
+import { theme, lightTheme, darkTheme } from './theme'
 
 // export default function App(){
 //     return(
@@ -28,12 +30,14 @@ import Signup from './components/Signup'
 
 const Container = styled.View`
     flex: 1
-    background-color: #ffffff
+    background-color: ${props => props.theme.background}
     align-items: center
     justify-content: center
 `
 
 export default function App(){
+    const [isDark, setIsDark] = useState(false)
+    const _toggleSwitch = () => setIsDark(!isDark)
     return(
         // <ScrollView>
         //     <View style={viewStyles.container}>
@@ -51,8 +55,18 @@ export default function App(){
         //         <Button title="React Native"/>
         //     </Container>
         // </ScrollView>
-        <View>
-            <Signup />
-        </View>
+        // <View>
+        //     {/* <Signup /> */}
+        // </View>
+        <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+            <Container>
+                <Switch value={isDark} onValueChange={_toggleSwitch} />
+                <Button title="Hanbit" />
+                <Button title="React Native" />
+                <Input borderColor="#3498db"/>
+                <Input borderColor="#9b59b6"/>
+            </Container>
+        </ThemeProvider>
+    
     )
 }
