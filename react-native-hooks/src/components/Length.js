@@ -25,6 +25,7 @@ const Length = () => {
         if(idx < list.length) setText(list[idx])
     }
 
+    //text의 값이 바뀔 때만 함수가 실행된다.
     const length = useMemo(() => getLength(text), [text])
 
     return(
