@@ -1,12 +1,11 @@
 import React from 'react'
-import {View, Text, TextInput} from 'react-native'
 import Calculator from './components/Calculator'
+import ChangeColor from './components/ChangeColor'
 
-function App() {
+const App = () => {
     return(
-        <View>
-            <Calculator />
-        </View>
+        // <Calculator />
+        <ChangeColor />
     )
 }
 export default App

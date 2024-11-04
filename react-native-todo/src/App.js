@@ -35,18 +35,19 @@ export default function App(){
 
     const[tasks, setTasks] = useState({})
 
-    useEffect(() => {
-        async function prepare(){
-            //스플래쉬 화면 유지
-            await SplashScreen.preventAutoHideAsync();
-            //필요한 데이터 로딩 작업 수행
-            _loadTask();
-            //로딩 후 스플래시 화면 숨김
-            await SplashScreen.hideAsync();
-        }
-        prepare();
-    },[])
+    // useEffect(() => {
+    //     async function prepare(){
+    //         //스플래쉬 화면 유지
+    //         await SplashScreen.preventAutoHideAsync();
+    //         //필요한 데이터 로딩 작업 수행
+    //         _loadTask();
+    //         //로딩 후 스플래시 화면 숨김
+    //         await SplashScreen.hideAsync();
+    //     }
+    //     prepare();
+    // },[])
 
+    //내용을 저장하는 메서드
     const _saveTasks = async tasks => {
         try{
             //JSON.stringify : 문자열을 JSON 형식으로 변환
@@ -56,7 +57,7 @@ export default function App(){
         }
     }
 
-    const _loadTask = async tasks => {
+    const _loadTask = async () => {
         const loadTasks = await AsyncStorage.getItem('tasks');
         //JSON.parse : JSON형식을 JS객체로 변환
         setTasks(JSON.parse(loadTasks|| '{}'))
@@ -111,6 +112,10 @@ export default function App(){
     const _onBlur = () => {
         setNewTask('');
     }
+
+    useEffect(() => {
+        _loadTask()
+    }, [tasks])
 
 
     return (
