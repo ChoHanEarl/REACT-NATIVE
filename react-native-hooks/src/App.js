@@ -5,6 +5,8 @@ import Counter from './components/Counter'
 import Form from './components/Form'
 import Timer from './components/Timer'
 import Length from './components/Length'
+import Dog from './components/Dog'
+import MakeBread from './components/MakeBread'
 
 const Container = styled.View`
     flex: 1;
@@ -22,7 +24,9 @@ const App = () => {
             버튼의 타이틀은 hide 또는 show로 바꾸기*/}
             {/* <Button title={isVisible ? "Hide" : "SHOW"} onPress={() => setIsVisible(!isVisible)}/> */}
             {/* <Timer /> */}
-            <Length />
+            {/* <Length /> */}
+            <Dog />
+            <MakeBread />
         </Container>
     )
 }
