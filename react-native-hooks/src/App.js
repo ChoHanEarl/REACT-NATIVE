@@ -7,6 +7,7 @@ import Timer from './components/Timer'
 import Length from './components/Length'
 import Dog from './components/Dog'
 import MakeBread from './components/MakeBread'
+import ScrollComponent from './components/ScrollComponent'
 
 const Container = styled.View`
     flex: 1;
@@ -25,8 +26,9 @@ const App = () => {
             {/* <Button title={isVisible ? "Hide" : "SHOW"} onPress={() => setIsVisible(!isVisible)}/> */}
             {/* <Timer /> */}
             {/* <Length /> */}
-            <Dog />
-            <MakeBread />
+            {/* <Dog />
+            <MakeBread /> */}
+            <ScrollComponent />
         </Container>
     )
 }
