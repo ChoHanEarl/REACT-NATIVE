@@ -2,7 +2,10 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import StackNavigation from './navigations/Stack'
 import BookStackNavigation from './navigations/BookStack'
-
+import UserStackNavigation from './navigations/UserStack'
+import TabNavigator from './navigations/Tab'
+import ShopAppTabNavigator from './navigations/ShopAppTab'
+import ChatTabNavigator from './navigations/ChatTab'
 // const Container = styled.View`
 //     flex: 1;
 //     background-color: #ffffff;
@@ -13,7 +16,7 @@ import BookStackNavigation from './navigations/BookStack'
 const App = () => {
     return(
         <NavigationContainer>
-            <BookStackNavigation />
+            <ChatTabNavigator />
         </NavigationContainer>
     )
 }
