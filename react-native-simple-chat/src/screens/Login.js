@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import styled from 'styled-components'
 // import { TouchableWithoutFeedback, Keyboard } from 'react-native'
 import { Image, Input, Button } from '../components/Index'
@@ -6,6 +6,9 @@ import { images } from '../utils/Images'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { removeWhitespace, validateEmail } from '../utils/common'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { Alert } from 'react-native'
+import { login } from '../utils/firebase'
+import { ProgressContext, UserContext } from '../contexts/Index'
 
 const Container = styled.View`
     flex: 1;
@@ -27,6 +30,10 @@ const ErrorText = styled.Text`
 `
 
 const Login = ({navigation}) => {
+
+    const {spinner} = useContext(ProgressContext)
+    const {dispatch} = useContext(UserContext)
+
     //useSafeAreaInsets()
     //화면의 안전 영역을 고려해 레이아웃을 조정할 때 사용하는 Hook
     //iOS장치의 상단 노치나 하단 홈버튼 영역과 같은 안전 구역을 감안해 레이아웃을 맞추기 위해 사용한다.
@@ -61,8 +68,18 @@ const Login = ({navigation}) => {
         setPassword(removeWhitespace(password))
     }
 
-    const _handleLoginButtonPress = () => {
-        alert('')
+    //Button 컴포넌트에 전달할 함수
+    const _handleLoginButtonPress = async () => {
+        try {
+            spinner.start()
+            const user = await login({email, password})
+            dispatch(user)
+            Alert.alert('Login Success', user.email)
+        } catch (error) {
+            Alert.alert('Login Error', error.message)
+        } finally{
+            spinner.stop()
+        }
     }
 
     return(

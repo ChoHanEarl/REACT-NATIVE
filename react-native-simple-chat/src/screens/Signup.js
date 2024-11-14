@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
+import { ProgressContext, UserContext } from '../contexts/Index'
 import styled from 'styled-components'
-import { Text } from 'react-native'
+import { Text, Alert } from 'react-native'
 import { Image, Input, Button } from '../components/Index'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { validateEmail, removeWhitespace } from '../utils/common'
 import { images } from '../utils/Images'
+import { signup } from '../utils/firebase'
 
 const Container = styled.View`
     flex: 1;
@@ -25,6 +27,9 @@ const ErrorText = styled.Text`
 `
 
 const Signup = () => {
+    const {spinner} = useContext(ProgressContext)
+    const {dispatch} = useContext(UserContext)
+
     const[name, setName] = useState('') // 이름을 관리하는 state
     const[email, setEmail] = useState('') // 아이디(email)을 관리하는 state
     const[password, setPassword] = useState('') // 비밀번호를 관리하는 state
@@ -66,8 +71,19 @@ const Signup = () => {
     const passwordConfirmRef = useRef()
     const didMountRef = useRef()
 
-    const _handleSignupButtonPress =() => {
-
+    //회원가입 버튼
+    const _handleSignupButtonPress = async () => {
+        try {
+            spinner.start()
+            const user = await signup({email, password, name, photoUrl})
+            console.log(user)
+            dispatch(user)
+            Alert.alert('Signup Success', user.email)
+        } catch (error) {
+            Alert.alert('Signup Error', error.message)
+        } finally{
+            spinner.stop()
+        }
     }
 
     return(

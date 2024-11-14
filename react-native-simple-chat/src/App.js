@@ -4,6 +4,7 @@ import {Asset} from 'expo-asset'//이미지,오디오,동영상 등 다양한 �
 import * as Font from  'expo-font';//사용자 정의 글꼴을 미리 로드하고 사용할 수 있다.
 import * as SplashScreen from 'expo-splash-screen'
 import { ThemeProvider } from "styled-components";
+import { ProgressProvider, UserProvider } from "./contexts/Index";
 import {theme} from './theme'
 import Navigation from "./navigations/Index";
 import { images } from "./utils/Images";
@@ -59,9 +60,13 @@ const App = () => {
 
     return(
         <ThemeProvider theme={theme}>
-            {/* dark-content 글자와 아이콘이 어두운 색상으로 나온다.*/}
-            <StatusBar barStyle='dark-content' />
-            <Navigation />
+            <UserProvider>
+                <ProgressProvider>
+                    {/* dark-content 글자와 아이콘이 어두운 색상으로 나온다.*/}
+                    <StatusBar barStyle='dark-content' />
+                    <Navigation />
+                </ProgressProvider>
+            </UserProvider>
         </ThemeProvider>
     )
 }

@@ -22,5 +22,7 @@ export const theme = {
     buttonUnfilledTitle: colors.blue,
     headerTintColor: colors.black,
     imageButtonBackground: colors.gray_1,
-    imageButtonIcon: colors.white
+    imageButtonIcon: colors.white,
+    spinnerBackground: colors.black,
+    spinnerIndicator: colors.white,
 }
