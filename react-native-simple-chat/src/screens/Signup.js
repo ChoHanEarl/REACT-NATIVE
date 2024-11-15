@@ -38,6 +38,11 @@ const Signup = () => {
     const[disabled, setDisabled] = useState(true) // 버튼 활성화 여부를 관리하는 state
     const[photoUrl, setPhotoUrl] = useState(images.photo2)
 
+    const emailRef = useRef()
+    const passwordRef = useRef()
+    const passwordConfirmRef = useRef()
+    const didMountRef = useRef()
+
     //함수 작성
     useEffect(() => {
         if(didMountRef.current){
@@ -66,18 +71,13 @@ const Signup = () => {
         )
     }, [name, email, password, passwordConfirm, errorMessage])
 
-    const emailRef = useRef()
-    const passwordRef = useRef()
-    const passwordConfirmRef = useRef()
-    const didMountRef = useRef()
-
     //회원가입 버튼
     const _handleSignupButtonPress = async () => {
         try {
             spinner.start()
             const user = await signup({email, password, name, photoUrl})
             console.log(user)
-            dispatch(user)
+            dispatch(user) //UserProvider에서 제공하는 setUser()
             Alert.alert('Signup Success', user.email)
         } catch (error) {
             Alert.alert('Signup Error', error.message)

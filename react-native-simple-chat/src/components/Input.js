@@ -22,7 +22,7 @@ const Label = styled.Text`
 const StyledTextInput = styled.TextInput.attrs(({theme}) => ({
     placeholderTextColor: theme.inputPlaceholder
 }))`
-    background-color: ${({theme}) => theme.background};
+    background-color: ${({theme, editable}) => editable ? theme.background : theme.inputDisabledBackground};
     color: ${({theme}) => theme.text};
     padding: 20px 10px;
     font-size: 16px;
@@ -44,7 +44,8 @@ const Input = forwardRef(
             placeholder,
             isPassword,
             returnKeyType,
-            maxLength
+            maxLength,
+            disabled
         },
             ref
     ) => {
@@ -72,6 +73,7 @@ const Input = forwardRef(
                     autoCorrect={false} //단어 추천기능 안뜨게
                     textContentType="none" //iOS에서만 사용하는 옵션, 옵션에 따라 뜨는 키보드가 달라짐
                     underlineColorAndroid="transparent" //컴포넌트의 밑줄 색상을 설정할 때 사용
+                    editable={!disabled} //해당 컴포넌트를 수정할 수 있냐(true) 없냐(false)
                 />
             </Container>
         )
@@ -79,18 +81,22 @@ const Input = forwardRef(
 )
 
 Input.defaultProps={
-    onBlur: () => {}
+    onBlur: () => {},
+    onChangeText:() => {},
+    onSubmitEditing: () => {}
 }
 
 Input.propTypes = {
     label: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
-    onChange: PropTypes.func,
+    onChangeText: PropTypes.func,
+    onSubmitEditing: PropTypes.func,
     onBlur: PropTypes.func,
     placeholder: PropTypes.string,
     isPassword: PropTypes.bool,
     returnKeyType: PropTypes.oneOf(['done','next']),
-    maxLength: PropTypes.number
+    maxLength: PropTypes.number,
+    editable: PropTypes.bool
 }
 
 export default Input
