@@ -19,6 +19,7 @@ import {
     getFirestore} from 'firebase/firestore';
 
 import config from '../../firebase.json'
+// import 'dotenv/config' //.env파일을 로드
 
 //initializeApp()메서드
 //firebase는 전달된 설정을 기반으로 객체를 생성한다.
@@ -129,12 +130,18 @@ export const createChannel = async ({ title, description }) => {
     return id;
 };
 
-export const createMessage = async({channelId, text}) => {
+//메시지를 데이터베이스에 저장
+export const createMessage = async({channelId, message}) => {
     //특정 채널의 메시지 컬렉션 안에 새로운 메시지 문서의 레퍼런스를 생성
-    const docRef = doc(db, `channels/${channelId}/messages`, text)
+    const docRef = doc(db, `channels/${channelId}/messages`, message._id)
 
     //생성된 문서 레퍼런스에 메시지 데이터를 저장
     //기존 메시지 객체의 모든 속성을 복사하고 
     //createdAt필드를 현재 시간으로 추가
-    await setDoc(docRef, {...text, createdAt: Date.now()})
+    await setDoc(docRef, {
+        ...message, //메시지 내용 
+        createdAt: Date.now() //현재 시간을 타임스탬프로 추가
+    })
+
+    console.log(`Message created with ID: ${docRef.id}`)
 }

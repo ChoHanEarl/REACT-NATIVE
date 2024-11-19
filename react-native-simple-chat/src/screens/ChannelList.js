@@ -49,16 +49,6 @@ const ItemTime = styled.Text`
 
 const channels = [];
 
-//채널을 100개 생성
-for(let idx = 0; idx < 100; idx++){
-    channels.push({
-        id: idx,
-        title : `title ${idx}`,
-        description : `description ${idx}`,
-        createdAt: idx,
-    })
-}
-
 const getDateOrTime = ts => {
     //현재 시간을 가져와 하루의 시작 지점으로 설정
     //startOf('day') : 2024-11-18 00:00:00;
@@ -99,8 +89,9 @@ const Item = React.memo(
 const ChannelList = ({navigation}) => {
     const [channels, setChannels] = useState([]);
 
+    //데이터베이스에서 데이터 조회
     useEffect(() => {
-        //qeury()
+        //query()
         //Firestore에서 데이터 조회를 위한 쿼리를 생성
         //collection()로 참조한 컬렉션에서 orderby 조건에 따라 정렬된 쿼리객체를 반환
         const collectionQuery = query(
