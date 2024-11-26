@@ -2,13 +2,13 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import MainScreen from "../screens/MainScreen";
 import WriteScreen from "../screens/WriteScreen";
+import PostDetail from "../screens/PostDetail";
 import { Pressable, View, Text, StyleSheet } from "react-native";
 import {AntDesign} from '@expo/vector-icons'
 
 const Stack = createStackNavigator();
 
 const BoardStack = ({navigation}) => {
-     
     return(
         <Stack.Navigator
             screenOptions={{
@@ -38,6 +38,13 @@ const BoardStack = ({navigation}) => {
                         </Pressable>
                     )
                 })}
+            />
+            <Stack.Screen
+                name="PostDetail"
+                options={{
+                    title:"상세보기"
+                }}
+                component={PostDetail}
             />
         </Stack.Navigator>
     )

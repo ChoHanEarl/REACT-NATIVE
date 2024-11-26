@@ -2,32 +2,45 @@ import React, { useLayoutEffect, useContext, useState } from "react";
 import { BoardContext } from "../context/BoardContext";
 import { View,Text, StyleSheet, Pressable, TextInput } from "react-native";
 import BoardStack from "../navigation/BoardStack";
+import axios from "axios";
 
 
 const WriteScreen = ({navigation}) => {
 
-    const {boardList, setBoardList} = useContext(BoardContext);
+    // const {boardList, setBoardList} = useContext(BoardContext);
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [content, setContent] = useState('');
 
-    const handleSave = () => {
+    const handleSave = async() => {
         if(!title || !author || !content){
             alert('모든 필드를 입력해주세요.');
             return;
         }
 
         const newBoardItem = {
-            id : boardList.length+1,
+            // id : boardList.length+1,
             title,
             author,
             content,
-            writingTime : new Date().toISOString(),
+            // writingTime : new Date().toISOString(),
         }
-
-        setBoardList([...boardList, newBoardItem]);
-        alert('게시글이 등록되었습니다.')
-        navigation.navigate('Main');
+        // backend에 게시글 저장 요청
+        try{ 
+            const response = await axios('http://10.0.2.2:9090/api/board/write',{
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                data:JSON.stringify(newBoardItem),
+                method:'post'
+            })
+            // setBoardList([...boardList, newBoardItem]);
+            alert('게시글이 저장되었습니다.')
+            navigation.navigate('Main');
+        } catch(error) {
+            console.error("Error saving post", error.message)
+            alert("오류 발생")
+        }
     }
 
     useLayoutEffect(() => {
